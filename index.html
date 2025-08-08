@@ -163,6 +163,17 @@
       --bg:#0b0c0f; --fg:#e6e7ea; --muted:#9aa3b2; --link:#6aa7ff; --border:#151922;
       --badge-gray:#9aa3b2; --badge-blue:#55a3ff; --badge-media:#6bc9ef;
     }
+
+    .head-note {
+      margin-top: .25rem;
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--fg);
+      background-color: color-mix(in srgb, var(--fg) 8%, var(--bg)); /* 浅灰背景，自适应深/浅模式 */
+      padding: .4rem .6rem;
+      border-radius: 6px;
+      display: inline-block;
+    }
   </style>
 </head>
 
@@ -177,7 +188,8 @@
         <a href="https://scholar.google.com/citations?user=FOBlj4YAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a> ·
         <a href="https://github.com/d0scoo1" target="_blank" rel="noopener noreferrer">GitHub</a>
       </p>
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color scheme" title="切换主题">…</button>
+       <p class="head-note">I'm open to collaboration opportunities.</p>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color scheme">…</button>
       <hr />
     </header>
 
@@ -337,7 +349,7 @@
 
     <hr />
     <section aria-labelledby="service-h">
-      <h2 id="service-h">Service</h2>
+      <h2 id="service-h">Professional Services</h2>
 
       <h3>Program Committee</h3>
       <ul>
