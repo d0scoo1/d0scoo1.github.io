@@ -1,101 +1,441 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <style data-merge-styles="true"></style>
-  <meta charset="UTF-8">
-  <title>doscool</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kailun Yan</title>
+  <meta name="description" content="Web3 security, DApps, smart contracts, and blockchain protocols." />
+  <meta name="author" content="Kailun Yan" />
+  <link rel="icon" type="image/png" href="public/images/avatar.png" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <meta name="description" content="Blockchain, Bitcoin, Ethereum, Cryptocurrency">
-  <meta name="author" content="doscool">
-
-  
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-
-  <link href="asset/css/fonts.css" rel="stylesheet">
-  <link rel="stylesheet" href="asset/css/index-style.css">
-
+  <!-- JSON-LD (minimal). -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Kailun Yan",
+    "jobTitle":"Postdoctoral Fellow",
+    "affiliation":{"@type":"Organization","name":"Tsinghua University"},
+    "url":"https://dos.cool",
+    "sameAs":["https://scholar.google.com/citations?user=FOBlj4YAAAAJ","https://github.com/d0scoo1"]
+  }
+  </script>
 
   <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
     })(window, document, "clarity", "script", "sr1v67xshq");
-</script>
+  </script>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8R8E17Y7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JP8R8E17Y7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-JP8R8E17Y7');
+  </script>
 
-  gtag('config', 'G-JP8R8E17Y7');
-</script>
+  <style>
+    /* ===== Minimal, text-first layout ===== */
+    :root{
+      --fg:#1b1f23; --muted:#5a6572; --bg:#ffffff; --link:#1b69f7; --border:#e6e8ec; --maxw:860px;
+      --badge-red:#d9534f; --badge-gray:#777; --badge-blue:#0275d8; --badge-green:#2f9b4e; --badge-purple:#6f42c1; --badge-media:#3aa0d8;
 
+      /* Badge system (sizes & rhythm) */
+      --badge-h:1.4rem;
+      --badge-px:.6rem;
+      --badge-radius:999px;
+      --badge-fs:12.5px;
+      --badge-fw:700;
+      --badgerow-gap-x:.38rem;
+      --badgerow-gap-y:.38rem;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#0b0c0f; --fg:#e6e7ea; --muted:#9aa3b2; --link:#6aa7ff; --border:#151922;
+        --badge-gray:#9aa3b2; --badge-blue:#55a3ff; --badge-media:#6bc9ef;
+      }
+    }
 
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    html{ line-break:loose; hanging-punctuation:first allow-end }
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans";
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    .wrap{ max-width:var(--maxw); margin:0 auto; padding:28px 16px 56px }
+
+    h1,h2,h3{ margin:0 0 .6rem; line-height:1.25; text-wrap:balance }
+    h1{ font-size:clamp(22px,3.2vw,28px) }
+    h2{ font-size:clamp(18px,2.4vw,22px); margin-top:1.2rem }
+    h3{ font-size:16px; margin-top:1rem; color:var(--muted); font-weight:600 }
+
+    /* Paragraph/list wrapping */
+    p,li{ margin:.6rem 0; text-wrap:pretty; hyphens:auto; overflow-wrap:anywhere }
+    ul{ margin:.4rem 0 .8rem; padding-left:1.1rem }
+
+    a{ color:var(--link); text-decoration:none; overflow-wrap:anywhere }
+    a:hover{ text-decoration:underline }
+
+    .meta,.hint{ color:var(--muted) }
+    .hint{ font-size:13px }
+    hr{ border:0; height:1px; background:currentColor; opacity:.12; margin:16px 0 }
+
+    details{ margin-top:.25rem }
+    summary{ cursor:pointer; color:var(--link); user-select:none }
+
+    footer{ margin-top:28px; color:var(--muted); font-size:13px; display:grid; gap:4px }
+
+    /* ===== Badge System (cleaned) ===== */
+    .links{
+      display:flex; flex-wrap:wrap;
+      column-gap:var(--badgerow-gap-x); row-gap:var(--badgerow-gap-y);
+      margin:.38rem 0 0; align-items:center; padding-left:0;
+    }
+    .badge{
+      display:inline-flex; align-items:center; justify-content:center;
+      height:var(--badge-h);
+      padding-inline:var(--badge-px);
+      border-radius:var(--badge-radius); border:1px solid currentColor; background:transparent;
+
+      font-size:var(--badge-fs); font-weight:var(--badge-fw);
+      line-height:1; white-space:nowrap; text-align:center;
+      letter-spacing:.1px; /* optical tweak for CJK/emoji */
+      overflow:hidden; text-overflow:ellipsis;
+    }
+    /* color variants */
+    .badge.red,.badge.award{color:var(--badge-red)}
+    .badge.gray{color:var(--badge-gray)}
+    .badge.blue{color:var(--badge-blue)}
+    .badge.green{color:var(--badge-green)}
+    .badge.purple{color:var(--badge-purple)}
+    .badge.media{color:var(--badge-media)}
+    .badge[aria-disabled="true"], .badge.is-muted{ opacity:.7 }
+
+    /* Optional: icon-leading badges */
+    .badge.badge--icon{ letter-spacing:0; padding-inline:calc(var(--badge-px) - .05rem) calc(var(--badge-px) + .05rem) }
+
+    /* Accessibility */
+    :focus-visible{ outline:2px solid color-mix(in srgb, var(--link), white 30%); outline-offset:2px; border-radius:6px }
+
+    /* Section rhythm */
+    section+section{ margin-top:20px }
+    h2+.pubs, h2+ul{ margin-top:.4rem }
+
+    /* Header micro spacing */
+    header{ position:relative }
+    header .meta{ margin-top:.35rem }
+
+    /* Mobile tweaks */
+    @media (max-width:420px){
+      .wrap{ padding:22px 14px 44px }
+      :root{ --badge-h:1.45rem; --badge-px:.52rem; --badge-fs:12px; --badgerow-gap-x:.32rem; --badgerow-gap-y:.32rem }
+    }
+
+    /* Print */
+    @media print{
+      a{ color:#000; text-decoration:none }
+      .links{ column-gap:.25rem; row-gap:.25rem }
+      .badge{ border-color:#999; font-weight:700 }
+      header hr, section hr{ display:none }
+    }
+
+    /* Theme toggle */
+    .theme-toggle{
+      position:absolute; top:4px; right:0;
+      border:1px solid currentColor; background:transparent; color:var(--muted);
+      height:28px; padding:0 .55rem; border-radius:999px; font:12.5px/1 system-ui,sans-serif; cursor:pointer;
+    }
+    .theme-toggle:hover{ color:var(--fg) }
+
+    /* Manual theme override */
+    :root[data-theme="light"]{
+      --bg:#ffffff; --fg:#1b1f23; --muted:#5a6572; --link:#1b69f7; --border:#e6e8ec;
+      --badge-gray:#777; --badge-blue:#0275d8; --badge-media:#3aa0d8;
+    }
+    :root[data-theme="dark"]{
+      --bg:#0b0c0f; --fg:#e6e7ea; --muted:#9aa3b2; --link:#6aa7ff; --border:#151922;
+      --badge-gray:#9aa3b2; --badge-blue:#55a3ff; --badge-media:#6bc9ef;
+    }
+  </style>
 </head>
 
+
 <body>
+  <main class="wrap">
+    <header>
+      <h1>Kailun Yan</h1>
+      <p class="meta">
+        Postdoc, Institute for Advanced Study, Tsinghua University<br />
+        Email: kailun [AT] mail.tsinghua.edu.cn<br />
+        <a href="https://scholar.google.com/citations?user=FOBlj4YAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a> ·
+        <a href="https://github.com/d0scoo1" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </p>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle color scheme" title="切换主题">…</button>
+      <hr />
+    </header>
 
-  Building...
+    <section aria-labelledby="about-h">
+      <h2 id="about-h">About</h2>
+      <p>
+        Dr. Kailun Yan is a postdoctoral fellow at the Institute for Advanced Study, Tsinghua University, working with
+        <a href="https://fififish.github.io/sisiduan/" target="_blank" rel="noopener noreferrer">Dr. Sisi Duan</a>. His
+        research focuses on Web3 security, particularly DApps, smart contracts, and blockchain protocols. His work has
+        been published in <em>WWW 2023</em> and <em>CCS 2024</em>, earning the
+        <em><a href="https://www.sigsac.org/ccs/CCS2024/program/awards.html" target="_blank" rel="noopener noreferrer">ACM CCS 2024 Distinguished Paper Award</a></em>
+        and the
+        <em><a href="https://cybersecurity.springeropen.com/best-paper-award-2025" target="_blank" rel="noopener noreferrer">Best Practical Paper in Cybersecurity Award 2025</a></em>.
+      </p>
+      <p>
+        He received his D.Eng. from Shandong University in 2025 (advisor:
+        <a href="https://diaowenrui.github.io/" target="_blank" rel="noopener noreferrer">Prof. Wenrui Diao</a>) and was
+        a visiting student at George Mason University in 2024 (advisor:
+        <a href="https://mainarke.github.io/" target="_blank" rel="noopener noreferrer">Asst. Prof. Xiaokuan Zhang</a>).
+        He earned his M.Eng. and B.Eng. degrees from Guangxi Normal University (advisor: Assoc. Prof. Jilian Zhang) and
+        Changzhou University, respectively.
+      </p>
+    </section>
+    <hr />
 
-  <!--<div id="main" class="container">
-
-    <div class="row h-100 justify-content-center">
-      <div class="col-12 col-md-9 col-lg-7 col-xl-6 text-center my-auto">
-        <div id="card" class="row justify-content-center">
-          <div class="col-12 mt-5">
-            <img src="asset/image/avatar.png" id="avatar">
+    <section aria-labelledby="pubs-h">
+      <h2 id="pubs-h">Selected Publications</h2>
+      <ul class="pubs">
+        <li><strong>[AsiaCCS 2025]</strong>
+          <strong>Kailun Yan</strong>, Bo Lu, Pranav Agrawal, Jiasun Li, Wenrui Diao, Xiaokuan Zhang (✉️).
+          An Empirical Study on Cross-chain Transactions: Costs, Inconsistencies, and Activities.
+          <em>The 20th ACM ASIA Conference on Computer and Communications Security, Hanoi, Vietnam. August 25-29,
+            2025.</em>
+          <div class="links">
+            <span class="badge gray">Core A</span>
+            <span class="badge gray">CCF C</span>
+            <a class="badge blue" href="/public/papers/asiaccs25-yan.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
           </div>
-          <div class="col-12 mt-3">
-            <h1 id="name">doscool</h1>
-          </div>
-          <div class="col-12 mt-1">
-            <h3><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
-              </svg>&nbsp;&nbsp;Qingdao, Shandong</h3>
-          </div>
+        </li>
 
-          <div class="col-12 mt-3 mb-5">
+        <li><strong>[CCS 2024]</strong>
+          <strong>Kailun Yan</strong>, Xiaokuan Zhang (✉️), Wenrui Diao (✉️).
+          Stealing Trust: Unraveling Blind Message Attacks in Web3 Authentication.
+          <em>The 31st ACM Conference on Computer and Communications Security, Salt Lake City, UT, USA. October 14-18,
+            2024.</em>
+          <div class="links">
+            <span class="badge red">Core A*</span>
+            <span class="badge red">CCF A</span>
+            <span class="badge gray">AR=16.9% (328/1940)</span>
 
-            <a href="https://github.com/d0scoo1" data-toggle="tooltip" title="" data-original-title="Github">
-            <div class="mx-3" style="display: inline;">
-         
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
-                  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-                </svg>
+            <a class="badge award" href="https://www.sigsac.org/ccs/CCS2024/program/awards.html" target="_blank" rel="noopener noreferrer">🏆 Distinguished Paper</a>
+            <a class="badge award" href="https://cybersecurity.springeropen.com/best-paper-award-2025" target="_blank" rel="noopener noreferrer">🏆 Best Practical Paper 2025</a>
+
+            <a class="badge blue" href="/public/papers/ccs2024_bma.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+            <a class="badge blue" href="/asset/paper/ccs2024-slides.pdf" target="_blank" rel="noopener noreferrer">Slides</a>
+            <a class="badge blue" href="https://sites.google.com/view/web3auth" target="_blank" rel="noopener noreferrer">Demo</a>
+
+            <a class="badge green" href="https://github.com/d0scoo1/Web3AuthChecker" target="_blank" rel="noopener noreferrer">Web3AuthChecker</a>
+            <a class="badge green" href="https://github.com/d0scoo1/Web3AuthGuard" target="_blank" rel="noopener noreferrer">Web3AuthGuard</a>
+
+            <a class="badge purple" href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-50053" target="_blank" rel="noopener noreferrer">CVE-2023-50053</a>
+            <a class="badge purple" href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-50059" target="_blank" rel="noopener noreferrer">CVE-2023-50059</a>
+
+            <a class="badge media" href="https://www.view.sdu.edu.cn/info/1021/196114.htm" target="_blank" rel="noopener noreferrer">Media: SDU</a>
+          </div>
+        </li>
+
+        <li><strong>[WWW 2023]</strong>
+          <strong>Kailun Yan</strong>, Jilian Zhang, Xiangyu Liu, Wenrui Diao (✉️), Shanqing Guo.
+          Bad Apples: Understanding the Centralized Security Risks in Decentralized Ecosystems.
+          <em>The 32nd ACM Web Conference, Austin, Texas, USA. April 30 - May 4, 2023.</em>
+          <div class="links">
+            <span class="badge red">Core A*</span>
+            <span class="badge red">CCF A</span>
+            <span class="badge gray">AR=19.2%</span>
+
+            <a class="badge blue" href="/public/papers/www23-yan.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+            <a class="badge green" href="https://github.com/d0scoo1/Naga" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="badge media" href="https://www.view.sdu.edu.cn/info/1021/175584.htm" target="_blank" rel="noopener noreferrer">Media: SDU</a>
+            <a class="badge media" href="https://d.wanfangdata.com.cn/periodical/xxwlaq202303015" target="_blank" rel="noopener noreferrer">Media: Netinfo Security</a>
+          </div>
+        </li>
+      </ul>
+
+      <details>
+        <summary>More</summary>
+        <ul class="pubs">
+          <li><strong>[Computer Journal 2023]</strong> <strong>Kailun Yan</strong>, Jilian Zhang (✉️), Yongdong Wu.
+            Improving Bitcoin Transaction Propagation Efficiency through Local Clique Network. <em>The Computer Journal,
+              2023, 66(2): 318-332.</em>
+            <div class="links">
+              <span class="badge gray">CCF B</span>
+              <a class="badge blue" href="/public/papers/lcn.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
             </div>
-          </a>
-            
-            <div class="mx-3" style="display: inline;">
-              <a href="cv.html" data-toggle="tooltip" title="" data-original-title="Github">
-                <svg class="bi bi-person-bounding-box" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
-                  <path fill-rule="evenodd" d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"/>
-                  <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                </svg>
-              </a>
-            </div>
+          </li>
 
-          </div>
-        </div>
+          <li><strong>[信息对抗技术 2023]</strong> <strong>闫凯伦</strong>, 刁文瑞 (✉️), 郭山清. 智能合约安全漏洞及检测技术综述. <em>信息对抗技术, 2023, 2(3):1-17.</em>
+            <span class="badge award">🏆 2024年度优秀论文</span>
+          </li>
 
-      </div>
+          <li><strong>[计算机科学 2021]</strong> <strong>闫凯伦</strong>, 张继连 (✉️). 一种可用于数据和模型分享的模型链. <em>计算机科学, 2021, 48(02):311-316.</em>
+            <span class="badge gray">CCF中文B类</span>
+          </li>
 
-    </div>
-  </div>
-  </div> -->
+          <li><strong>[SANER 2024]</strong> Shuang Li, Rui Li, Yifan Yu, <strong>Kailun Yan</strong>, Shishuai Yang,
+            Wenrui Diao (✉️). Understanding Android OS Forward Compatibility Support for Legacy Apps: A Data-Driven
+            Analysis. <em>The 31st IEEE International Conference on Software Analysis, Evolution, and Reengineering,
+              Rovaniemi, Finland. March 12-15, 2024.</em>
+              <span class="badge gray">Core A</span>
+              <span class="badge gray">CCF B</span>
+          </li>
 
+          <li><strong>[QRS 2022]</strong> Guangwei Tian, Jiongyi Chen, <strong>Kailun Yan</strong>, Shishuai Yang,
+            Wenrui Diao (✉️). Cast Away: On the Security of DLNA Deployments in the SmartTV Ecosystem. <em>The 22nd IEEE
+              International Conference on Software Quality, Reliability and Security (QRS). IEEE, 2022: 105-116</em>.
+              <span class="badge gray">CCF C</span>
+          </li>
 
+          <!-- Patents (kept inside More per your current structure) -->
+          <li><strong>[Patent]</strong> 张继连; 闫凯伦; 吴永东; 翁健. <em>比特币网络交易传播方法、装置、设备及存储介质.</em> 202011420918.3 
+            <span class="badge gray">已授权</span>
+          </li>
 
+          <li><strong>[Patent]</strong> 张继连; 闫凯伦; 吴永东; 翁健. <em>神经网络模型更新方法、设备及计算机存储介质.</em> 202011557239.0 
+            <span class="badge gray">公布中</span>
+          </li>
 
+          <li><strong>[US Patent]</strong> 
+            Zhang Jilian; Yan Kailun; Wu Yongdong; Weng Jian. <em>Neural Network Update Method Based On Blockchain.</em> Patent No. US 11,949,797 B2
+          </li>
+        </ul>
+      </details>
+    </section>
+
+    <hr />
+    <section aria-labelledby="awards-h">
+      <h2 id="awards-h">Awards</h2>
+      <ul>
+        <li>2025-07 · <a href="https://cybersecurity.springeropen.com/best-paper-award-2025" target="_blank" rel="noopener noreferrer"><strong>Best Practical Paper in Cybersecurity Award 2025</strong></a></li>
+        <li>2024-10 · <a href="https://www.sigsac.org/ccs/CCS2024/program/awards.html" target="_blank" rel="noopener noreferrer"><strong>ACM CCS 2024 Distinguished Paper Award</strong></a></li>
+      </ul>
+
+      <details>
+        <summary>More</summary>
+        <ul>
+          <li>2025-04 · 山东大学优秀毕业生</li>
+          <li>2025-03 · 《信息对抗技术》2024年度优秀论文</li>
+          <li>2025-01 · 山东大学研究生科研创新与成果应用大赛 二等奖</li>
+          <li>2024-12 · DataCon 2024 大数据安全分析竞赛, AI安全赛道 第二名 <a href="https://www.view.sdu.edu.cn/info/1023/199214.htm" target="_blank" rel="noopener noreferrer">Media: SDU</a></li>
+          <li>2024-12 · 博士研究生国家奖学金</li>
+          <li>2024-07 · 网络安全学院学生创新资助计划</li>
+          <li>2024-07 · 山东大学海外交流奖学金</li>
+          <li>2021-12 · DataCon 2021 大数据安全分析竞赛, 邮件安全组 第八名</li>
+        </ul>
+      </details>
+    </section>
+
+    <hr />
+    <section aria-labelledby="service-h">
+      <h2 id="service-h">Service</h2>
+
+      <h3>Program Committee</h3>
+      <ul>
+        <li><a href="https://madweb.work/" target="_blank" rel="noopener noreferrer"><strong>MADWeb 2025</strong> — The
+            7th Workshop on Measurements, Attacks, and Defenses for the Web</a></li>
+        <li><a href="https://www.sigsac.org/ccs/CCS2024/organization/ae-committee.html" target="_blank" rel="noopener noreferrer"><strong>ACM CCS 2024</strong> — Artifact Evaluation Committee</a></li>
+      </ul>
+
+      <h3>Reviewer</h3>
+      <ul>
+        <li>IEEE Transactions on Dependable and Secure Computing <strong>(TDSC)</strong> — 2025</li>
+        <li>ACM Transactions on Knowledge Discovery from Data <strong>(TKDD)</strong> — 2024</li>
+        <li>External Review: SANER 2024, Inscrypt 2023, ESORICS 2022, ICICS 2022</li>
+      </ul>
+    </section>
+
+    <hr />
+
+    <footer>
+      <div>© <span id="y"></span> Kailun Yan</div>
+      <div>Built and maintained with the help of ChatGPT.</div>
+      <div>Last updated: <time id="updated" datetime=""></time></div>
+    </footer>
+  </main>
+
+  <script>
+    // year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // last updated (UTC+8)
+    (function () {
+      const t = document.getElementById('updated');
+      const lm = new Date(document.lastModified || Date.now());
+      const fmt = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Shanghai' });
+      t.textContent = fmt.format(lm) + ' (UTC+8)';
+      t.setAttribute('datetime', lm.toISOString());
+    })();
+  </script>
+
+  <!-- Theme toggle: show current effective theme (Light/Dark); click toggles to the opposite. -->
+  <script>
+    (function () {
+      const STORAGE_KEY = 'theme'; // 'light' | 'dark' | null (auto)
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+      function effectiveTheme() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved === 'light' || saved === 'dark') return saved; // user-set
+        return mq.matches ? 'dark' : 'light'; // auto (follow system)
+      }
+
+      function setMetaTheme(theme) {
+        document.querySelectorAll('meta[name="theme-color"]').forEach(m => {
+          m.setAttribute('content', theme === 'dark' ? '#0b0c0f' : '#ffffff');
+        });
+      }
+
+      function applyTheme(theme, persist) {
+        // When user explicitly chooses, set data-theme; otherwise (auto) remove it.
+        if (theme === 'light' || theme === 'dark') {
+          root.setAttribute('data-theme', theme);
+          if (persist) localStorage.setItem(STORAGE_KEY, theme);
+        } else {
+          root.removeAttribute('data-theme');
+          if (persist) localStorage.removeItem(STORAGE_KEY);
+        }
+        btn.textContent = (theme === 'dark' ? 'Dark' : 'Light');
+        setMetaTheme(theme);
+      }
+
+      // Init
+      const init = effectiveTheme();
+      // If user has a saved theme, ensure data-theme is set; else follow system (no attribute)
+      if (localStorage.getItem(STORAGE_KEY)) {
+        root.setAttribute('data-theme', init);
+      } else {
+        root.removeAttribute('data-theme'); // follow CSS media query
+      }
+      btn.textContent = (init === 'dark' ? 'Dark' : 'Light');
+      setMetaTheme(init);
+
+      // If following system (no saved theme), update on system changes
+      mq.addEventListener?.('change', () => {
+        if (!localStorage.getItem(STORAGE_KEY)) {
+          const cur = mq.matches ? 'dark' : 'light';
+          applyTheme(cur, false);
+        }
+      });
+
+      // Click: toggle to the opposite of current effective theme; persist user choice
+      btn.addEventListener('click', () => {
+        const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+        applyTheme(next, true);
+      });
+    })();
+  </script>
 
 </body>
 
